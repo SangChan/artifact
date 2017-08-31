@@ -1,5 +1,5 @@
 use dev_prefix::*;
-use jsonrpc_core::{IoHandler, RpcMethodSync, Params, Error as RpcError};
+use jsonrpc_core::{Error as RpcError, IoHandler, Params, RpcMethodSync};
 use serde_json;
 
 use diesel;
@@ -52,7 +52,6 @@ impl RpcMethodSync for GetRuns {
 
         let val = serde_json::to_value(params).unwrap();
         if let Ok(test_run_search) = serde_json::from_value::<TestRunSearch>(val) {
-
             let mut version_ids: Vec<i32> = Vec::new();
 
             let mut query = test_run::table.into_boxed();
@@ -76,7 +75,6 @@ impl RpcMethodSync for GetRuns {
                     for k in v_query.load(&connection).unwrap() {
                         version_ids.push(k);
                     }
-
                 }
                 query = query.filter(test_run::version_id.eq_any(version_ids));
             }
@@ -97,8 +95,6 @@ impl RpcMethodSync for GetRuns {
         } else {
             Err(utils::invalid_params("Missing parameters"))
         }
-
-
     }
 }
 
@@ -157,7 +153,7 @@ impl RpcMethodSync for AddTestRun {
         {
             let msg = format!(
                 "Test name \'{}\' not in database. Please \
-                add using \'AddTest\' before continuing",
+                 add using \'AddTest\' before continuing",
                 new_test_run.test_name
             );
             return Err(utils::invalid_params(&msg));
@@ -171,7 +167,7 @@ impl RpcMethodSync for AddTestRun {
         {
             let msg = format!(
                 "Version id \'{}\' not in database. \
-                Please add using \'AddVersion\' before continuing",
+                 Please add using \'AddVersion\' before continuing",
                 new_test_run.version_id
             );
             return Err(utils::invalid_params(&msg));
@@ -187,7 +183,7 @@ impl RpcMethodSync for AddTestRun {
             {
                 let msg = format!(
                     "Artifact \'{}\' not in database. \
-                    Please add using \'AddArtifact\' before continuing",
+                     Please add using \'AddArtifact\' before continuing",
                     artifact
                 );
                 return Err(utils::invalid_params(&msg));
@@ -244,7 +240,5 @@ impl RpcMethodSync for AddTest {
         println!("{:?}", c);
 
         return Ok(c);
-
-
     }
 }

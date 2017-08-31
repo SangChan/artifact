@@ -64,36 +64,36 @@ pub struct TestRunSearch {
 }
 
 table! {
-	test_name (name) {
-		name -> Text,
-	}
+    test_name (name) {
+        name -> Text,
+    }
 }
 
 table! {
-	artifact_name (name) {
-		name -> Text,
-	}
+    artifact_name (name) {
+        name -> Text,
+    }
 }
 
 table! {
-	version (id) {
-		id -> Int4,
-		major -> Text,
-		minor -> Nullable<Text>,
-		patch -> Nullable<Text>,
-		build -> Nullable<Text>,
-	}
+    version (id) {
+        id -> Int4,
+        major -> Text,
+        minor -> Nullable<Text>,
+        patch -> Nullable<Text>,
+        build -> Nullable<Text>,
+    }
 }
 
 table! {
-	test_run (id) {
-		id -> Int4,
-		test_name -> Text,
-		passed -> Bool,
-		artifacts -> Array<Text>,
-		epoch -> Float,
-		version_id -> Int4,
-		link -> Nullable<Text>,
-		data -> Nullable<Binary>,
-	}
+    test_run (id) {
+        id -> Int4,
+        test_name -> Text,
+        passed -> Bool,
+        artifacts -> Array<Text>,
+        epoch -> Float,
+        version_id -> Int4,
+        link -> Nullable<Text>,
+        data -> Nullable<Binary>,
+    }
 }

@@ -26,11 +26,11 @@ pub fn init_logger(
     };
 
     let logger_config = fern::DispatchConfig {
-        format: Box::new(|msg: &str,
-         level: &log::LogLevel,
-         _location: &log::LogLocation| {
-            format!("{}: {}", level, msg)
-        }),
+        format: Box::new(
+            |msg: &str, level: &log::LogLevel, _location: &log::LogLocation| {
+                format!("{}: {}", level, msg)
+            },
+        ),
         output: vec![output],
         level: level,
     };
